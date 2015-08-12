@@ -542,13 +542,53 @@ int user_loop()
   char tmp_username[256];
     int pressed_key;
     int STOP = 0;
-void clientdef (void);
+//void clientdef (void);
+#define MY_PORT	8765//1234
+
+//void *fast_send(void *ptr); // fast loop... intended to send the force data
+void *slow_receive(void *ptr); // slow loop... intended to receive position measurements
+
+// needed for socket creation and usage
+int connectionFd, _true = 1;
+struct sockaddr_in servaddr;
+char in_buffer[1024], out_buffer[1024];
+double var[3] = {2.2};
+}
 int clientfunc (void);
     while(!STOP) {
       monitor_serialport();
       IMU_Gesture();
+      
+      //void slow_receive(void *ptr);   //in_buffer is the variable to transfer signal from client to user
+      
+		memset( &in_buffer, 0, sizeof(in_buffer) ); // reset memory to 0's
+		recv( connectionFd, in_buffer, sizeof(in_buffer), 0 ); // receive message
+		printf("Received: %s\n", in_buffer);
+		sleep_time(0.1);
+      
+      
+      
+      
+      
+      if (in_buffer == 'i')
+      {
+		  
+		  }
+      
+      if (in_buffer == 'n')
+      {
+		  
+		  }
+		  
+	  if (in_buffer == 'o')
+      {
+		  
+		  }
+      
+      
+      
       //  if a key is pressed
-      void slow_receive(void *ptr); 
+      
       if( kbhit() ) {
         pressed_key = readch(); // get pressed key
         switch (pressed_key) {
